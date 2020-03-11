@@ -1,8 +1,11 @@
-`$auth = Auth::login();
+```
+$auth = Auth::login();
 $this->accessToken = $auth->accessToken();
 if ($this->accessToken && $auth->expiresIn() > 5) {
     return $this->accessToken;
-}`
+}
+```
+
 
 ## Feel free to contribute & pr
 
