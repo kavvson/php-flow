@@ -84,7 +84,7 @@ class Auth
         }
 
         #auth-flow-documentation 6) Get Tokens
-        self::epicgames_get_token('d84ccecb8ffd4eb99ac1aa366485e83f', $token);
+        self::epicgames_get_token($code, $token); // For manual -> 'd84ccecb8ffd4eb99ac1aa366485e83f', $token
 
     }
 
@@ -177,12 +177,13 @@ class Auth
      * @param $xsrf_token
      * @return  string | null
      */
-    public static function epicgames_get_exchange_data($xsrf_token)
+   public static function epicgames_get_exchange_data($xsrf_token)
     {
-        $client = new Client(['headers' => ['x-xsrf-token' => $xsrf_token]]);
+        $client = new Client(['headers' => ['x-xsrf-token' => $xsrf_token["token"]], 'cookies' => $xsrf_token['jar']]);
         $response = $client->get(self::API_EXCHANGE_CODE);
         return json_decode($response->getBody()->getContents())->code ?? null;
     }
+
 
     /**
      * #auth-flow-documentation 6)
